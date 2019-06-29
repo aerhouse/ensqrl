@@ -3,29 +3,29 @@ import XCTest
 
 @available(OSX 10.15, iOS 13, *)
 final class enhashTests: XCTestCase {
-        func testEnhash() {
-            let input1 = Data.init(fromHex: """
-    00010203040506070809000102030405
-    06070809000102030405060708090001
-    """)!
-            let expected1 = Data.init(fromHex: """
-    5827fa4d2b417638b4e4612bcbc339ea
-    89754e640020012d8fe5bbed7ca1d15f
-    """)!
+    func testEnhash() {
+        let input1 = Data.init(fromHex: """
+00010203040506070809000102030405
+06070809000102030405060708090001
+""")!
+        let expected1 = Data.init(fromHex: """
+5827fa4d2b417638b4e4612bcbc339ea
+89754e640020012d8fe5bbed7ca1d15f
+""")!
 
-            XCTAssertEqual(enhash(input1), expected1)
+        XCTAssertEqual(enhash(input1), expected1)
 
-            let input2 = Data.init(fromHex: """
-    00010203040506070809000102030405
-    06070809000102030405060708090001
-    """)!
-            let expected2 = Data.init(fromHex: """
-    5827fa4d2b417638b4e4612bcbc339ea
-    89754e640020012d8fe5bbed7ca1d15f
-    """)!
+        let input2 = Data.init(fromHex: """
+00010203040506070809000102030405
+06070809000102030405060708090001
+""")!
+        let expected2 = Data.init(fromHex: """
+5827fa4d2b417638b4e4612bcbc339ea
+89754e640020012d8fe5bbed7ca1d15f
+""")!
 
-           XCTAssertEqual(enhash(input2), expected2)
-        }
+       XCTAssertEqual(enhash(input2), expected2)
+    }
 
     static var allTests = [
         ("testEnhash", testEnhash),
