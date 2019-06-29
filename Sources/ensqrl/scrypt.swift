@@ -167,9 +167,7 @@ func blockMix(input: UnsafePointer<UInt32>,
 
 func salsa_20_8(_ input: UnsafeMutablePointer<UInt32>) {
     let x = UnsafeMutablePointer<UInt32>.allocate(capacity: 16)
-    for i in 0 ..< 16 {
-        x[i] = input[i]
-    }
+    x.assign(from: input, count: 16)
     
     defer {
         x.assign(repeating: 0, count: 16)
@@ -196,6 +194,6 @@ func salsa_20_8(_ input: UnsafeMutablePointer<UInt32>) {
     }
     
     for i in 0 ..< 16 {
-        input[i] = input[i] &+ x[i]
+        input[i] &+= x[i]
     }
 }

@@ -9,7 +9,8 @@ public func enhash<D: DataProtocol>(_ input: D) -> Data {
     // Pointer version saves about 35 ms compared to naïve implementation
     // on dev machine based on my unscientific experiments.
 
-    func xor(_ this: UnsafeMutableBufferPointer<UInt64>, with that: UnsafeMutableBufferPointer<UInt64>) {
+    func xor(_ this: UnsafeMutableBufferPointer<UInt64>,
+             with that: UnsafeMutableBufferPointer<UInt64>) {
         for i in 0 ..< 4 {
             this[i] ^= that[i]
         }

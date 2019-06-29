@@ -238,7 +238,6 @@ final class enscryptTests: XCTestCase {
         let expected = Data.init(fromHex: "a8ea62a6e1bfd20e4275011595307aa302645c1801600ef5cd79bf9d884d911c")!
         
         let pw = ""
-//        let salt = "".data(using: .utf8)!
         let iterations = 1
         
         XCTAssertEqual(expected, enscrypt(password: pw, salt: nil, cost: 512, mode: .iteration, count: iterations).key)
@@ -248,7 +247,6 @@ final class enscryptTests: XCTestCase {
         let expected = Data.init(fromHex: "a6e74d1f707cdc909f99826eb6c562694d91fc12d31a552b17f88ca153a1b497")!
         
         let pw = ""
-//        let salt = "".data(using: .utf8)!
         let iterations = 5
         
         XCTAssertEqual(expected, enscrypt(password: pw, salt: nil, cost: 512, mode: .iteration, count: iterations).key)
@@ -258,7 +256,6 @@ final class enscryptTests: XCTestCase {
         let expected = Data.init(fromHex: "6931d8e0ec5102bc0e0c9d5b8a8a7184b6478c6125c92d440428e6835bf43e0b")!
         
         let pw = "password"
-//        let salt = "".data(using: .utf8)!
         let iterations = 5
         
         XCTAssertEqual(expected, enscrypt(password: pw, salt: nil, cost: 512, mode: .iteration, count: iterations).key)
