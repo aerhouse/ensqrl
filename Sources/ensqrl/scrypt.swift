@@ -139,7 +139,8 @@ func blockMix(input: UnsafePointer<UInt32>,
               tmpBlock tmp: UnsafeMutablePointer<UInt32>,
               blockSize r: Int
     ) {
-    let salsaTmp = UnsafeMutablePointer(tmp + 16)
+    let salsaTmp = tmp + 16
+    
     // tmp <- input[2*r - 1]
     tmp.assign(from: input + (2 * r - 1) * 16, count: 16)
     

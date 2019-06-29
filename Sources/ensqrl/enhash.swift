@@ -35,14 +35,14 @@ public func enhash<D: DataProtocol>(_ input: D) -> Data {
 
     // tmp <- tmp (+) HASH(hashBuf)
     // First iteration
-    let _ = SHA256.hash(data: input).withUnsafeBytes {
+    _ = SHA256.hash(data: input).withUnsafeBytes {
         $0.copyBytes(to: hashBuf)
     }
     xor(tmp, with: hashBuf)
 
     // Second through sixteenth iterations
     for _ in 2 ... 16 {
-        let _ = SHA256.hash(bufferPointer: hashPtr).withUnsafeBytes {
+        _ = SHA256.hash(bufferPointer: hashPtr).withUnsafeBytes {
             $0.copyBytes(to: hashBuf)
         }
         xor(tmp, with: hashBuf)
