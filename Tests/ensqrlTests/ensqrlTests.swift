@@ -49,7 +49,7 @@ e8 d3 e0 fb 2e 0d 36 28 cf 35 e2 0c 38 d1 89 06
         let dkLen = 64
         
         var newSalt = [UInt8](repeating: 0, count: 128 * r * p)
-        var romixTmp = [UInt32](repeating: 0, count: (256 * r + 64) / 4)
+        var romixTmp = [UInt32](repeating: 0, count: (256 * r + 128) / 4)
         var V = [UInt32](repeating: 0, count: (128 * N * r) / 4)
         var dk = [UInt8](repeating: 0, count: dkLen)
         
@@ -73,7 +73,7 @@ c7 27 af b9 4a 83 ee 6d 83 60 cb df a2 cc 06 40
         let dkLen = 64
         
         var newSalt = [UInt8](repeating: 0, count: 128 * r * p)
-        var romixTmp = [UInt32](repeating: 0, count: (256 * r + 64) / 4)
+        var romixTmp = [UInt32](repeating: 0, count: (256 * r + 128) / 4)
         var V = [UInt32](repeating: 0, count: (128 * N * r) / 4)
         var dk = [UInt8](repeating: 0, count: dkLen)
         
@@ -97,7 +97,7 @@ e6 1e 85 dc 0d 65 1e 40 df cf 01 7b 45 57 58 87
         let dkLen = 64
         
         var newSalt = [UInt8](repeating: 0, count: 128 * r * p)
-        var romixTmp = [UInt32](repeating: 0, count: (256 * r + 64) / 4)
+        var romixTmp = [UInt32](repeating: 0, count: (256 * r + 128) / 4)
         var V = [UInt32](repeating: 0, count: (128 * N * r) / 4)
         var dk = [UInt8](repeating: 0, count: dkLen)
         
@@ -153,7 +153,9 @@ b4 39 31 68 e3 c9 e6 bc fe 6b c5 b7 a0 6d 96 ba
 e4 24 cc 10 2c 91 74 5c 24 ad 67 3d c7 61 8f 81
 """)!.toArray(type: UInt32.self)
         
-        salsa_20_8(&input)
+        var tmp = [UInt32](repeating: 0, count: 16)
+        
+        salsa_20_8(&input, tmpBlock: &tmp)
         XCTAssertEqual(input, expected)
     }
     
@@ -187,7 +189,7 @@ e4 24 cc 10 2c 91 74 5c 24 ad 67 3d c7 61 8f 81
 """)!.toArray(type: UInt32.self))
         
         var output = [UInt32](repeating: 0, count: 32)
-        var tmp = [UInt32](repeating: 0, count: 64)
+        var tmp = [UInt32](repeating: 0, count: 128 / 4)
         
         blockMix(input: &input, output: &output, tmpBlock: &tmp, blockSize: 1)
         XCTAssertEqual(output, expected)
@@ -220,7 +222,7 @@ ae 12 fd 44 38 f2 03 a0 e4 e1 c4 7e c3 14 86 1f
         let N = 16
         
         var V = [UInt32](repeating: 0, count: (128 * r * N) / 4)
-        var XY = [UInt32](repeating: 0, count: (256 * r + 64) / 4)
+        var XY = [UInt32](repeating: 0, count: (256 * r + 128) / 4)
         
         roMix(input: &input, romixArray: &V, tmpMemory: &XY, cost: N, blockSize: r)
         XCTAssertEqual(input, expected)

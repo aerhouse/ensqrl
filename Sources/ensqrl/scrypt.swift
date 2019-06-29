@@ -139,6 +139,7 @@ func blockMix(input: UnsafePointer<UInt32>,
               tmpBlock tmp: UnsafeMutablePointer<UInt32>,
               blockSize r: Int
     ) {
+    let salsaTmp = UnsafeMutablePointer(tmp + 16)
     // tmp <- input[2*r - 1]
     UnsafeMutableRawPointer(tmp).copyMemory(from: input + (2 * r - 1) * 16, byteCount: 64)
     
@@ -146,7 +147,7 @@ func blockMix(input: UnsafePointer<UInt32>,
         // tmp <- tmp (+) input[i]
         blockXor(tmp, with: input + 16 * i, forByteCount: 64)
         // Mix
-        salsa_20_8(tmp)
+        salsa_20_8(tmp, tmpBlock: salsaTmp)
         
         // Even output indices
         // output[i] <- tmp
@@ -155,7 +156,7 @@ func blockMix(input: UnsafePointer<UInt32>,
         // tmp <- tmp (+) input[i + 1]
         blockXor(tmp, with: input + 16 * i + 16, forByteCount: 64)
         // Mix
-        salsa_20_8(tmp)
+        salsa_20_8(tmp, tmpBlock: salsaTmp)
         
         // Odd output indices
         // output[i + 1] <- tmp
@@ -165,14 +166,8 @@ func blockMix(input: UnsafePointer<UInt32>,
 
 // MARK: - Salsa20/8 Core Function
 
-func salsa_20_8(_ input: UnsafeMutablePointer<UInt32>) {
-    let x = UnsafeMutablePointer<UInt32>.allocate(capacity: 16)
+func salsa_20_8(_ input: UnsafeMutablePointer<UInt32>, tmpBlock x: UnsafeMutablePointer<UInt32>) {
     x.assign(from: input, count: 16)
-    
-    defer {
-        x.assign(repeating: 0, count: 16)
-        x.deallocate()
-    }
     
     for _ in stride(from: 0, to: 8, by: 2) {
         x[ 4] ^= ( x[ 0] &+ x[12] ) <<<  7; x[ 8] ^= ( x[ 4] &+ x[ 0] ) <<<  9

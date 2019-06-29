@@ -34,7 +34,7 @@ public func enscrypt(password: String, salt: Data?, cost N: Int, mode: EnscryptM
     var saltTmp = [UInt8](repeating: 0, count: 32_768)
     var dk = [UInt8](repeating: 0, count: dkLen)
     var tmp = [UInt8](repeating: 0, count: dkLen)
-    var romixTmp = [UInt32](repeating: 0, count: 16_400)
+    var romixTmp = [UInt32](repeating: 0, count: 16_416)
     var V = [UInt32](repeating: 0, count: 8_192 * N)
     
     // Cleanup memory
