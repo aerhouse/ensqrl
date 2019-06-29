@@ -19,7 +19,7 @@ import CommonCrypto
 /// for iterative execution. In particular, the memory used in the derivation is allocated before
 /// calling and is subject to the following:
 /// - Requires: `|mixedSalt| == 128 * r * p` bytes
-/// - Requires: `|romixTmp| == 256 * r + 64` bytes
+/// - Requires: `|romixTmp| == 256 * r + 128` bytes
 /// - Requires: `|V| == 128 * N * r` bytes
 ///
 /// ---
