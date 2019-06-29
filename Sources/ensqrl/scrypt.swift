@@ -95,13 +95,13 @@ func roMix(input: UnsafeMutableRawPointer,
     
     for i in stride(from: 0, to: N, by: 2) {
         // V[i] <- X
-        UnsafeMutableRawPointer(romixArray + 32 * i * r).copyMemory(from: X, byteCount: 128 * r)
+        (romixArray + 32 * i * r).assign(from: X, count: 32 * r)
         
         // Mix
         blockMix(input: X, output: Y, tmpBlock: bmTmp, blockSize: r)
         
         // V[i + 1] <- Y
-        UnsafeMutableRawPointer(romixArray + 32 * (i + 1) * r).copyMemory(from: Y, byteCount: 128 * r)
+        (romixArray + 32 * (i + 1) * r).assign(from: Y, count: 32 * r)
         
         // Mix
         blockMix(input: Y, output: X, tmpBlock: bmTmp, blockSize: r)
@@ -128,7 +128,7 @@ func roMix(input: UnsafeMutableRawPointer,
     
     // input <- X
     for i in 0 ..< 32 * r {
-        UnsafeMutableRawPointer(input + 4 * i).storeBytes(of: X[i], as: UInt32.self)
+        (input + 4 * i).storeBytes(of: X[i], as: UInt32.self)
     }
 }
 
@@ -141,7 +141,7 @@ func blockMix(input: UnsafePointer<UInt32>,
     ) {
     let salsaTmp = UnsafeMutablePointer(tmp + 16)
     // tmp <- input[2*r - 1]
-    UnsafeMutableRawPointer(tmp).copyMemory(from: input + (2 * r - 1) * 16, byteCount: 64)
+    tmp.assign(from: input + (2 * r - 1) * 16, count: 16)
     
     for i in stride(from: 0, to: 2 * r, by: 2) {
         // tmp <- tmp (+) input[i]
@@ -151,7 +151,7 @@ func blockMix(input: UnsafePointer<UInt32>,
         
         // Even output indices
         // output[i] <- tmp
-        UnsafeMutableRawPointer(output + 8 * i).copyMemory(from: tmp, byteCount: 64)
+        (output + 8 * i).assign(from: tmp, count: 16)
         
         // tmp <- tmp (+) input[i + 1]
         blockXor(tmp, with: input + 16 * i + 16, forByteCount: 64)
@@ -160,7 +160,7 @@ func blockMix(input: UnsafePointer<UInt32>,
         
         // Odd output indices
         // output[i + 1] <- tmp
-        UnsafeMutableRawPointer(output + 8 * i + 16 * r).copyMemory(from: tmp, byteCount: 64)
+        (output + 8 * i + 16 * r).assign(from: tmp, count: 16)
     }
 }
 
