@@ -1,6 +1,7 @@
 import XCTest
 @testable import ensqrl
 
+#if targetEnvironment(simulator)
 @available(OSX 10.15, iOS 13, *)
 final class enhashTests: XCTestCase {
     func testEnhash() {
@@ -31,6 +32,7 @@ final class enhashTests: XCTestCase {
         ("testEnhash", testEnhash),
     ]
 }
+#endif
 
 final class scryptTests: XCTestCase {
     func testScrypt1() {

@@ -1,6 +1,7 @@
 import Foundation
 import CryptoKit
 
+#if targetEnvironment(simulator)
 /// Iteratively hash a value 16 times with SHA-256 and XOR each intermediate digest together.
 /// - Parameter input: Byte buffer to be hashed.
 /// - Returns: A 32-byte buffer of the XOR'd digests.
@@ -50,3 +51,4 @@ public func enhash<D: DataProtocol>(_ input: D) -> Data {
 
     return Data.init(buffer: tmp)
 }
+#endif
