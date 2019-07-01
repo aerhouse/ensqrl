@@ -25,7 +25,7 @@ import CommonCrypto
 /// ---
 /// The parameters are subject to the following requirements, per the RFC:
 ///
-/// - Requires: `N > 1 && N < 2^(16 * r)`
+/// - Requires: `N > 1 && N < 2^(16 * r)` and `N` must be a power of 2
 /// - Requires: `p > 0 && p <= (2^32 - 1) / (4 * r)`
 /// - Requires: `dkLen > 0 && dkLen <= (2^32 - 1) * 32`
 ///
