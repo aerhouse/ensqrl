@@ -94,7 +94,7 @@ public func enscrypt(password: String, salt: Data?, cost N: Int, mode: EnscryptM
         var sLen = salt == nil ? 0 : dkLen
         
         var iterations = 0
-        let endTime = DispatchTime.now() + DispatchTimeInterval.seconds(count)
+        let endTime = CFAbsoluteTimeGetCurrent() + Double(max(count, 1))
         
         repeat {
             iterations += 1
@@ -122,7 +122,7 @@ public func enscrypt(password: String, salt: Data?, cost N: Int, mode: EnscryptM
             
             // Ensure intermediate salts are 32 bytes
             sLen = dkLen
-        } while DispatchTime.now() < endTime
+        } while CFAbsoluteTimeGetCurrent() < endTime
         
         return (iterations, Data(tmp))
     }
