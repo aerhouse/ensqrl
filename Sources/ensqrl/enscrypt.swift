@@ -59,9 +59,9 @@ public func enscrypt(password: String, salt: Data?, cost N: Int, mode: EnscryptM
     case .iteration:
         // Allow for no salt
         var sLen = salt == nil ? 0 : dkLen
-        let iter = max(count, 1)
+        let iterations = max(count, 1)
         
-        for _ in 0 ..< iter {
+        for _ in 0 ..< iterations {
             scrypt(password: &pw,
                    passwordLength: pw.count,
                    salt: &sBuf,
@@ -87,7 +87,7 @@ public func enscrypt(password: String, salt: Data?, cost N: Int, mode: EnscryptM
             sLen = dkLen
         }
 
-        return (iter, Data(tmp))
+        return (iterations, Data(tmp))
         
     case .duration:
         // Allow for no salt
