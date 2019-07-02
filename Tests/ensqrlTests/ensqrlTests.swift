@@ -285,6 +285,24 @@ final class enscryptTests: XCTestCase {
         }
     }
     
+    func testMinDurationEnscrypt() {
+        let pw = ""
+        let salt: Data? = nil
+        let duration = 0
+        
+        let (c,_) = enscrypt(password: pw, salt: salt, cost: 2, mode: .duration, count: duration)
+        XCTAssertGreaterThan(c, 0)
+    }
+    
+    func testMinIterationEnscrypt() {
+        let pw = ""
+        let salt: Data? = nil
+        let count = 0
+        
+        let (c,_) = enscrypt(password: pw, salt: salt, cost: 2, mode: .iteration, count: count)
+        XCTAssertEqual(c, 1)
+    }
+    
     // Long tests on my poor little laptop
 //    func testIterEnscrypt5() {
 //        let expected = Data.init(fromHex: "45a42a01709a0012a37b7b6874cf16623543409d19e7740ed96741d2e99aab67")!
