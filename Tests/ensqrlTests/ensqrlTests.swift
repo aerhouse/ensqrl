@@ -330,6 +330,8 @@ final class enscryptTests: XCTestCase {
         ("testIterEnscrypt3", testIterEnscrypt3),
         ("testIterEnscrypt4", testIterEnscrypt4),
         ("testDurationEnscrypt", testDurationEnscrypt),
+        ("testMinDurationEnscrypt", testMinDurationEnscrypt),
+        ("testMinIterationEnscrypt", testMinIterationEnscrypt),
 //        ("testIterEnscrypt5", testIterEnscrypt5),
 //        ("testIterEnscrypt6", testIterEnscrypt6),
     ]
