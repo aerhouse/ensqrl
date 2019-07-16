@@ -1,15 +1,11 @@
 import Foundation
 import CryptoKit
 
-#if targetEnvironment(simulator)
 /// Iteratively hash a value 16 times with SHA-256 and XOR each intermediate digest together.
 /// - Parameter input: Byte buffer to be hashed.
 /// - Returns: A 32-byte buffer of the XOR'd digests.
 @available(OSX 10.15, iOS 13, *)
 public func enhash<D: DataProtocol>(_ input: D) -> Data {
-    // Pointer version saves about 35 ms compared to naïve implementation
-    // on dev machine based on my unscientific experiments.
-
     func xor(_ this: UnsafeMutableBufferPointer<UInt64>,
              with that: UnsafeMutableBufferPointer<UInt64>) {
         for i in 0 ..< 4 {
@@ -51,4 +47,3 @@ public func enhash<D: DataProtocol>(_ input: D) -> Data {
 
     return Data.init(buffer: tmp)
 }
-#endif
